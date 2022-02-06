@@ -31,18 +31,25 @@
 #include "salti_util.h"
 #include "salti_handshake.h"
 
-//Maximum size of data that the program can process
-#define MAX_SIZE                UINT32_MAX   
 //Delay attack protection, threshold for differense in milliseconds
 #define TRESHOLD 				1000
 //
 #define PROTOCOL_BUFFER 		128
 //Size, where the decrypted message starts in the buffer 
-#define ENC_MSG             38
+#define ENC_MSG                 38
+//Size of hash tag
+#define HASH_SIZE               64
+//We need size + 42 bytes available for buffer in AppPacket type
+#define AVAILABLE_BUFFER        42
+
+//Function for calculated hash from input data
+int crypto_hash(uint8_t *p_message, 
+                uint8_t *p_calculated_hash, 
+                int size);
 
 int main(int argc, char *argv[]) 
 {	
-	int cport_nr = 2,        /* /dev/ttyS0 (COM1 on windows) */
+	int cport_nr = 0,        /* /dev/ttyS0 (COM1 on windows) */
       	bdrate = 9600,       /* 9600 baud */
       	fileSize, verify = 0;
 
@@ -72,18 +79,19 @@ int main(int argc, char *argv[])
  	fileSize = ftell(stream);
  	fseek(stream, 0L, SEEK_SET);
 
- 	input = (uint8_t *) malloc(fileSize);
-    tx_buffer = (uint8_t *) malloc(fileSize);
+ 	input = (uint8_t *) malloc(fileSize + HASH_SIZE);
+    tx_buffer = (uint8_t *) malloc(fileSize + HASH_SIZE);
 
 //Check if the memory has been successfully
 //allocated by malloc or not
-  if (input == NULL || tx_buffer == NULL) {
+  if (input == NULL || tx_buffer == NULL) 
+   {
       printf("Memory not allocated.\n");
       exit(0);
-  }
+   }
 
   	fread(input, 1, fileSize, stream);
-    printf("File size is: %u\n", fileSize);
+    printf("\nFile size is: %u\n", fileSize);
 
   	if(fclose(stream) == EOF) printf("Failed to closed file\n");
 
@@ -168,12 +176,22 @@ int main(int argc, char *argv[])
         memset(tx_buffer, 0, fileSize);
         //input[fileSize] = '\0';
 
+//Calculated hash of data
+        int verify_hash = 1;
+        verify_hash = crypto_hash(input, &input[fileSize], fileSize);
+        if(verify_hash != 0)
+            printf("Failed to create hash\n");
+
+        if(verify_hash == 0) 
+            printf("A check tag has been created and attached to the data to verify integrity\n");
+        printf("\n");
+
 //Prepare the message before encrypting and sending 
-        ret_msg = salt_write_begin(tx_buffer, MAX_SIZE, &msg_out);
+        ret_msg = salt_write_begin(tx_buffer, fileSize + AVAILABLE_BUFFER + HASH_SIZE, &msg_out);
         assert(ret_msg == SALT_SUCCESS);
 
 //Copy clear text message to be encrypted to next encrypted package
-        ret_msg = salt_write_next(&msg_out, input, fileSize);
+        ret_msg = salt_write_next(&msg_out, input, fileSize + HASH_SIZE);
         assert(ret_msg == SALT_SUCCESS);
 
 //Wrapping and creating encrypted messages, sending for server 
@@ -216,6 +234,16 @@ int main(int argc, char *argv[])
     free(tx_buffer);
     free(input);
     return 0;
+}
+
+
+int crypto_hash(uint8_t *p_message, uint8_t *p_calculated_hash, int size)
+{
+
+    int ret;
+    ret = api_crypto_hash_sha512(p_calculated_hash, p_message, size);
+   
+   return ret;
 }
 
 
