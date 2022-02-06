@@ -42,7 +42,7 @@
 
 int main(void) 
 { 
-    int cport_nr = 3,        /* /dev/ttyS0 (COM1 on windows) */
+    int cport_nr = 1,        /* /dev/ttyS0 (COM1 on windows) */
         bdrate = 9600;       /* 9600 baud */
 
     char mode[]={'8','N','1',0};
@@ -145,6 +145,7 @@ int main(void)
 
 //Reads encrypted message
         ret_msg = salt_read_begin(&pc_b_channel, rx_buffer, MAX_SIZE, &msg_in);
+
 
 //If the data has been successfully received and decrypted       
         if (ret_msg == SALT_SUCCESS)
