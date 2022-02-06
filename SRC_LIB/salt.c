@@ -24,6 +24,8 @@
 #define SALT_WRITE_NONCE_INIT_CLIENT            (1U)
 #define SALT_READ_NONCE_INIT_SERVER             (1U)
 #define SALT_READ_NONCE_INIT_CLIENT             (2U)
+//Size of hash tag
+#define HASH_SIZE                                64
 
 /*======= Type Definitions ====================================================*/
 
@@ -35,6 +37,16 @@ static uint8_t sc2protocol[10] = "SCv2------";
 /*======= Local function prototypes ===========================================*/
 
 /*======= Global function implementations =====================================*/
+
+int my_crypto_hash(uint8_t *p_message, uint8_t *p_calculated_hash, int size)
+{
+
+    int ret;
+    ret = api_crypto_hash_sha512(p_calculated_hash, p_message, size);
+   
+   return ret;
+}
+
 
 salt_ret_t salt_create(salt_channel_t *p_channel,
                        salt_mode_t mode,
@@ -515,10 +527,37 @@ salt_ret_t salt_read_begin(salt_channel_t *p_channel,
         salt_err_t err_code = salt_read_init(header[0], p_buffer, size, p_msg);
         SALT_VERIFY(err_code == SALT_ERR_NONE, err_code);
     }
+//Data listing
+    salt_mode_t  SALT_SERVER;
+    int size_without_hash = size - HASH_SIZE;
 
-   printf("\nReceived data:\n");
-   for(int u = 0; u < size; u++){
+    if(p_channel->mode != SALT_SERVER) size_without_hash = size;
+
+    printf("\nReceived data:\n");
+    for(int u = 0; u < size_without_hash; u++){
       printf("%c", p_buffer[u]);
+    }
+
+//Calculated hash of data
+    if (p_channel->mode == SALT_SERVER) 
+    { 
+        int verify_hash = 1;
+        uint8_t calculated_hash[HASH_SIZE];
+
+        verify_hash = my_crypto_hash(p_buffer, calculated_hash, size_without_hash);
+        if(verify_hash != 0)
+            printf("\nFailed to create hash\n");
+
+        if(verify_hash == 0) 
+        {   printf("\n");
+            printf("\nA check tag has been created to perform a tag comparison\n");
+            int result = memcmp(calculated_hash, &p_buffer[size_without_hash], HASH_SIZE);
+            printf("\nThe transmitted data was not disturbed");
+            if(result != 0)
+            {   printf("\nData integrity has been compromised\n");
+                return SALT_ERROR;
+            }
+        }
     }
 
     return ret;
