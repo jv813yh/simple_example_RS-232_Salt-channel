@@ -94,6 +94,16 @@ int main(int argc, char *argv[])
     printf("\nFile size is: %u\n", fileSize);
 
   	if(fclose(stream) == EOF) printf("Failed to closed file\n");
+	
+//Calculated hash of data
+     int verify_hash = 1;
+     verify_hash = crypto_hash(input, &input[fileSize], fileSize);
+     if(verify_hash != 0)
+          printf("Failed to create hash\n");
+
+     if(verify_hash == 0) 
+          printf("A check tag has been created and attached to the data to verify integrity\n");
+      printf("\n");
 
 //Open port (COM number) on RS2_32
     if(RS232_OpenComport(cport_nr, bdrate, mode, 0))
@@ -170,21 +180,11 @@ int main(int argc, char *argv[])
     }
 
 //Sending data and waiting for a confirmation message
-    while (verify)
+	while (verify)
     { 
     	ret_msg = SALT_ERROR;
         memset(tx_buffer, 0, fileSize);
         //input[fileSize] = '\0';
-
-//Calculated hash of data
-        int verify_hash = 1;
-        verify_hash = crypto_hash(input, &input[fileSize], fileSize);
-        if(verify_hash != 0)
-            printf("Failed to create hash\n");
-
-        if(verify_hash == 0) 
-            printf("A check tag has been created and attached to the data to verify integrity\n");
-        printf("\n");
 
 //Prepare the message before encrypting and sending 
         ret_msg = salt_write_begin(tx_buffer, fileSize + AVAILABLE_BUFFER + HASH_SIZE, &msg_out);
