@@ -23,3 +23,6 @@ and the parameters as set in the source codes.
 
 The program can be compiled using the Makefile file. I added .txt files
 for easy application demonstration with .bat files.
+
+Discription about salt-channel: 
+https://github.com/assaabloy-ppi/salt-channel-c
