@@ -34,5 +34,10 @@ odosle mu, ze vymena dat neprebehla spravne a je nutne proces vymenny dat
 zopakovat. Prijimaju a odosielaju sa data v ramci COM portov (cislo, 
 je potrebne upravit v zdrojokoych kodoch)
 
-Program je kompilovatelny pomocou Makefile suboru. Si pridane .txt subory
-pre jednoduchu demonstraciu aplikacii spolu s .bat subormi.
+Program je kompilovatelny pomocou Makefile suboru. Je pridana funkcia 
+pre nacitanie vstupneho suboru, ktory sa odosiela, taktiez funkcia vykonava
+operaciu, ak uzivatel chce vytvorit vlastny testovaci subor a ten odoslat kanalom.
+
+Kompilovane na Windowse pomocou WinLibs: https://winlibs.com/
+
+Protokol salt channel je pohanay kryptografickou kniznicou tweetNacl: https://tweetnacl.cr.yp.to/
