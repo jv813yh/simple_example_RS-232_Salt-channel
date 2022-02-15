@@ -41,3 +41,5 @@ operaciu, ak uzivatel chce vytvorit vlastny testovaci subor a ten odoslat kanalo
 Kompilovane na Windowse pomocou WinLibs: https://winlibs.com/
 
 Protokol salt channel je pohanay kryptografickou kniznicou tweetNacl: https://tweetnacl.cr.yp.to/
+
+Na simulovanie hardverovych rozhrani RS-232 vyuzivam emulator: https://www.ai-media.tv/wp-content/uploads/2019/07/com0com_setup.pdf
