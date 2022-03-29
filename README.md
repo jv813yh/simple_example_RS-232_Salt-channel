@@ -1,4 +1,4 @@
-# example_RS-232_Salt-channel
+#simple_example_RS-232_Salt-channel
 
 Demonstration of an example using the RS-232 communication channel p
 implementation of the salt-channelv2 application cryptographic protocol
