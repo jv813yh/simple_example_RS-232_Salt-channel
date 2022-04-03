@@ -34,7 +34,7 @@ I use the emulator on Windows to simulate RS-232 hardware interfaces:
 https://www.ai-media.tv/wp-content/uploads/2019/07/com0com_setup.pdf
 On Linux You need to assign to the "dialout" group and have active ports.
 
-#Salt-channel:
+# Salt-channel:
 Discription about salt-channel: 
 https://github.com/assaabloy-ppi/salt-channel-c
 The salt channel protocol is powered by the tweetNaCl cryptographic library:
