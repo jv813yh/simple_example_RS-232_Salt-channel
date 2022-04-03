@@ -841,7 +841,6 @@ uint8_t *loading_file(char *file,
     return input;
 }
 
-/* Function for calculated count of blocks */
 uint32_t calculated_count_of_blocks(uint32_t file_size, 
                                uint32_t block_size, 
                                uint32_t overhead_size)
