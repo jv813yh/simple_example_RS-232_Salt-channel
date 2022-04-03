@@ -23,8 +23,7 @@ I will not be able to write data and I will come next, in this case I will lose 
 The program was tested with a maximum transmission of 20Mb, which passed in the order of one block 
 and the parameters as set in the source codes.
 
-The program can be compiled using the Makefile file. I added .txt files
-for easy application demonstration with .bat files for Windows.
+The program can be compiled using the Makefile file. I added .bat files for Windows.
 A feature has been added
 to load the input file that is being sent, the function is also executed
 operation if the user wants to create his own test file and send it through the channel.
