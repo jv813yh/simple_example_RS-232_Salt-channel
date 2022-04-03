@@ -16,12 +16,12 @@ sends him that the data exchange did not work properly and the data exchange pro
 to repeat. Data is received and sent within the COM ports (number,
 needs to be adjusted in source codes).The integrity of the transmitted data is being verified.
 
-It is possible to transfer data within one block as in this case, or in multiple blocks. 
-It should be borne in mind that at what distance the data is transferred, what parameters RS232 
-has set and what large data is transferred, so that a situation does not occur that 
-I will not be able to write data and I will come next, in this case I will lose data. 
-The program was tested with a maximum transmission of 20Mb, which passed in the order of one block 
-and the parameters as set in the source codes.
+Data is transferred in multiple blocks.
+It should be borne in mind that for what distance the data is transmitted, what RS232 parameters
+it has it set and how much data is being transferred so that the situation does not happen
+I will not be able to write data and I will come, in this case I will lose data. 
+It should be safe against this case.
+The program was tested with a maximum size of 11MB.
 
 The program can be compiled using the Makefile file. I added .bat files for Windows.
 A feature has been added
