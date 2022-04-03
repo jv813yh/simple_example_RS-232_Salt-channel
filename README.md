@@ -32,6 +32,7 @@ operation if the user wants to create his own test file and send it through the 
 # Windows/Linux
 I use the emulator on Windows to simulate RS-232 hardware interfaces:
 https://www.ai-media.tv/wp-content/uploads/2019/07/com0com_setup.pdf
+
 On Linux You need to assign to the "dialout" group and have active ports.
 
 # Salt-channel:
