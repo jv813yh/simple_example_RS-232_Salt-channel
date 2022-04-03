@@ -97,21 +97,6 @@
 #define MILISECONDS         750
 #endif
 
-/* 
- * Function for Salt channel protocol deployment for the client 
- * and connection establishment (Salt handshake)
- *
- * @par p_client_channel:       pointer to salt_channel_t structure
- * @par write_impl:             write implementation 
- * @par read_impl:              read implementation 
- * @par p_socket:               SOCKET (TCP/IP)
- * @par p_time_impl             time implementation
- * @par treshold                value for threshold
- *
- * @return SALT_SUCCESS          in case success
- * @return SALT_ERROR
- * @return SALT_PENDING
- */
 
 salt_ret_t salt_impl_and_hndshk(salt_channel_t *p_client_channel, 
                                     salt_io_impl write_impl,
