@@ -21,7 +21,11 @@ It should be borne in mind that for what distance the data is transmitted, what 
 it has it set and how much data is being transferred so that the situation does not happen
 I will not be able to write data and I will come, in this case I will lose data. 
 It should be safe against this case.
-The program was tested with a maximum size of 11MB.
+
+115200Bd:
+File transfer about size 11.5MB time took seconds 1697 on Windows
+and about size 9MB time took seconds 1955 on Linux.
+On linux, I had to put the sender to sleep for a long time compared to Windows.
 
 The program can be compiled using the Makefile file. I added .bat files for Windows.
 A feature has been added
