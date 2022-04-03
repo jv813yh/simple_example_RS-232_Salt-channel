@@ -49,7 +49,7 @@
 #include "salt_example_rs232.h"
 /* /dev/ttyS0 (COM1 on windows) port */
 #define CPORT_NR                1
-/* 9600 baud, bit rate */
+/* 115200 baud, bit rate */
 #define B_TRATE                 115200
 
 /* ===== Salt-channel libraries ===== */
