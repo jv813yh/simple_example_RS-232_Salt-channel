@@ -2,9 +2,11 @@
 
 Demonstration of an example using the RS-232 communication channel p
 implementation of the salt-channelv2 application cryptographic protocol
-in C. The client.exe application loads the input file that is 
-as a second argument in the CLI and initiates a salt handshake between the client
-and server. If the salt handshake is successful, it is safe
+in C. The client.exe application loads the input file and initiates a salt handshake
+between the clientand server.
+The client also sends to the server the size of the transferred file and 
+the size of the blocks in which the file is transferred.
+If the salt handshake is successful, it is safe
 client-server connection. The client sends the loaded file to the server
 , the server receives it, decrypts it and displays it on the screen.
 Success is verified using the SALT_SUCCESS and SALT_ERROR protocol constants
@@ -22,9 +24,20 @@ The program was tested with a maximum transmission of 20Mb, which passed in the 
 and the parameters as set in the source codes.
 
 The program can be compiled using the Makefile file. I added .txt files
-for easy application demonstration with .bat files.
+for easy application demonstration with .bat files for Windows.
+A feature has been added
+to load the input file that is being sent, the function is also executed
+operation if the user wants to create his own test file and send it through the channel.
 
 # Windows/Linux
+I use the emulator on Windows to simulate RS-232 hardware interfaces:
+https://www.ai-media.tv/wp-content/uploads/2019/07/com0com_setup.pdf
+On Linux You need to assign to the "dialout" group and have active ports.
 
+#Salt-channel:
 Discription about salt-channel: 
 https://github.com/assaabloy-ppi/salt-channel-c
+The salt channel protocol is powered by the tweetNaCl cryptographic library:
+https://tweetnacl.cr.yp.to/
+
+
