@@ -144,7 +144,7 @@ int main(void)
     {
         printf("Please enter name of your file with suffix, example: example.txt \n");
         printf("Make sure the file is in the current directory\n");
-        if (EOF == scanf("%d", &select_file))
+        if (EOF == scanf("%s", own_file))
         {
             printf("Bad choice for file only 0 or 1 :(\n");
             return -1;
