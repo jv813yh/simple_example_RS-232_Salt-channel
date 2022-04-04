@@ -94,7 +94,7 @@
 /* for Linux for fseeko() and ftello() and macro MILISECONDS */
 #if !defined(_WIN32)
 #define _FILE_OFFSET_BITS   64
-#define MILISECONDS         750
+#define MILISECONDS         850
 #endif
 
 
