@@ -278,7 +278,7 @@ int main(void)
                 fprintf(stdout, "I must send it again\n");
             }
         } /* End of send of data in block */
-	} /* End of sending data and confirm them  while(verify){...} */
+    } /* End of sending data and confirm them  while(verify){...} */
 
 /* ===================  End of application  ======================== */
 
