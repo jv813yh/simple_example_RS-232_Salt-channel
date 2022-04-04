@@ -171,7 +171,7 @@ int main(void)
                               &file_size, 
                               select_file);
 
-    printf("\nFile size is: %u\n", file_size\n);
+    printf("\nFile size is: %u\n\n", file_size);
     
 /* ===========  Open port on RS2_32  ============ */
 
