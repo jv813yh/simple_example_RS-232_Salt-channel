@@ -109,7 +109,7 @@ int main(void)
     * tx_buffer -> encrypted data
     * input -> loading input file 
     */     
-    uint8_t  *tx_buffer, *input;               
+    uint8_t  tx_buffer[BLOCK_SIZE + SALT_WRITE_OVRHD_SIZE], *input;               
 
     /* Time measurement variables */
     clock_t start_t, end_t;
@@ -171,30 +171,7 @@ int main(void)
                               &file_size, 
                               select_file);
 
-    printf("\nFile size is: %u\n", file_size);
-    /* 
-     * Calculating the number of blocks and the additional memory 
-     * required to work with the data for protocol
-     */
-    uint32_t count_of_write_blocks = calculated_count_of_blocks(file_size,
-                                                                BLOCK_SIZE,
-                                                                SALT_WRITE_OVRHD_SIZE);
-    count_of_write_blocks = SALT_WRITE_OVRHD_SIZE + (count_of_write_blocks * 2);
-    if (count_of_write_blocks <= 0)
-    {
-        printf("Error calculating memory size for blocks\n");
-        return -1;
-    }
-    /* Allocates the requested memory and returns a pointer to it */
-    tx_buffer = (uint8_t *) malloc(file_size + count_of_write_blocks);
-    //Check if the memory has been successfully
-    //allocated by malloc or not
-    if(tx_buffer == NULL)
-    {
-        printf("Memory not allocated.\n");
-        exit(0);   
-    }
-    printf("\n");
+    printf("\nFile size is: %u\n", file_size\n);
     
 /* ===========  Open port on RS2_32  ============ */
 
@@ -248,7 +225,7 @@ int main(void)
         start_t = clock();
         verify_send_data = salt_encrypt_and_send(&pc_a_channel,
                                                 tx_buffer,
-                                                file_size + count_of_write_blocks,
+                                                BLOCK_SIZE + SALT_WRITE_OVRHD_SIZE,
                                                 file_size,
                                                 BLOCK_SIZE,
                                                 input,
@@ -314,7 +291,6 @@ int main(void)
     printf("Finished.\n");
 
     //Free allocated memory
-    free(tx_buffer);
     free(input);
     
     return 0;
