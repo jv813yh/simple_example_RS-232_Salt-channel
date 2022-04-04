@@ -32,6 +32,7 @@
 /* Basic libraries for working in C. */
 #include <stdio.h>
 #include <stdint.h>
+#include <stdlib.h>
 
 /* Transmission proccess is measured between devices. */
 #include <time.h>
