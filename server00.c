@@ -180,12 +180,11 @@ int main(void)
             exit(1);
         }
 
-        /* Reads encrypted data in blocks */
+/* =========== Reads encrypted data in blocks ================ */
         uint8_t rx_buffer[block_size + SALT_READ_OVRHD_SIZE],
                 copy_buffer[block_size];
         
         decrypt_size = 0;
-
         /* Start of transmission measurement */
         start_t = clock();
         do
@@ -198,12 +197,8 @@ int main(void)
                                                       &decrypt_size,
                                                       fp);
             if (check_read == 1) ret_msg = SALT_SUCCESS;
-            else
-            {   
-                printf("Failed to process received data\n");
-                assert(check_read == 1);
-            } 
-
+            else printf("Failed to process received data\n");
+            
         } while(decrypt_size < expected_size);
         /* End of data transmission measurement */ 
         end_t = clock();
