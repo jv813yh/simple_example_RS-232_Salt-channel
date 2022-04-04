@@ -840,28 +840,3 @@ uint8_t *loading_file(char *file,
 
     return input;
 }
-
-uint32_t calculated_count_of_blocks(uint32_t file_size, 
-                               uint32_t block_size, 
-                               uint32_t overhead_size)
-{
-    uint32_t begin = 0, count_blocks = 0;
-    
-    while(begin < file_size)
-    {
-        count_blocks++;
-        
-        begin += block_size;
-
-        if (begin > file_size) break;
-        
-        if (begin + block_size > file_size)
-        {
-           count_blocks++;
-           
-           break;
-        }
-    }
-
-    return count_blocks;  
-}
