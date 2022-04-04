@@ -114,15 +114,6 @@ uint8_t *loading_file(char *file,
                       int my_file);
 
 /* 
- * Function for calculated count of blocks.
- *
- * @return  	count of block
- */
-uint32_t calculated_count_of_blocks(uint32_t file_size, 
-                               uint32_t block_size, 
-                               uint32_t overhead_size);
-
-/* 
  * Function for buffer preparation, data too, 
  * encryption and data sending (in Salt channel) for client and server.
  *
