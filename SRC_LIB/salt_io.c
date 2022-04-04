@@ -116,10 +116,6 @@ salt_ret_t my_read(salt_io_channel_t *p_rchannel)
 
     /* The amount of data to received */
     uint32_t to_read;
-#if !defined(_WIN32)
-    to_read = p_rchannel->size_expected - p_rchannel->size;
-#endif
-
 
 /**
  * Gets characters from the cport_nr. &p_rchannel->p_data[p_rchannel->size]
@@ -135,9 +131,8 @@ salt_ret_t my_read(salt_io_channel_t *p_rchannel)
  */
    while (p_rchannel->size < p_rchannel->size_expected)
     { 
-#ifdef _WIN32
         to_read = p_rchannel->size_expected - p_rchannel->size;
-#endif 
+       
         bytes_received = RS232_PollComport(cport_nr, 
                                            &p_rchannel->p_data[p_rchannel->size],
                                            to_read);
