@@ -489,7 +489,7 @@ uint32_t salt_encrypt_and_send(salt_channel_t *p_channel,
         while(1)
         {   
             ret_msg = salt_read_begin(p_channel, help_buffer, sizeof(help_buffer), &confirm_msg);
-            if (ret_msg == SALT_SUCCESS || ret_msg == SALT_ERROR) break;
+            if (ret_msg == SALT_SUCCESS) break;
         }
 #if !defined(_WIN32)
         if ((sleep_return = sleep_miliseconds_win_linux(MILISECONDS)) == 0)
